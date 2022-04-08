@@ -45,7 +45,7 @@
 		{:else}
 			<h1 class="top__title">Channels</h1>
 
-			{#if $user}
+			{#if $user.data}
 				<AddChannel />
 			{/if}
 		{/if}
