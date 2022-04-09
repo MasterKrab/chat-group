@@ -90,7 +90,7 @@
 			top: 0;
 			left: 0;
 			z-index: 100;
-			width: 85%;
+			width: 100%;
 			height: 100vh;
 			transform: translateX(-100%);
 			transition: transform 0.5s ease-in-out;
@@ -105,6 +105,7 @@
 			background-color: var(--secondary-color);
 
 			@media screen and (max-width: 768px) {
+				width: 85%;
 				max-width: 22.625rem;
 			}
 		}
