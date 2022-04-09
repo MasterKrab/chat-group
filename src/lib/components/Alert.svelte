@@ -1,10 +1,12 @@
 <script lang="ts">
+	import { portal } from 'svelte-portal'
+
 	export let text: string
 </script>
 
 {#if text}
 	{#key text}
-		<p class="alert" role="alert">
+		<p use:portal={'body'} hidden class="alert" role="alert">
 			<span class="material-icons">error</span>
 			{text}
 		</p>

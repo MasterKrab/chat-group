@@ -5,7 +5,7 @@
 	import MessageForm from '$lib/components/MessageForm.svelte'
 	import NoUserMessage from '$lib/components/NoUserMessage.svelte'
 
-	export let menuOpen = false
+	export let menuOpen: boolean
 
 	const handleOpenMenu = () => (menuOpen = true)
 </script>

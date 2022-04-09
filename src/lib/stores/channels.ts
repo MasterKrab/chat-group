@@ -9,7 +9,7 @@ const createChannels = () => {
 		createChannel?: (name: string, description?: string) => void
 	}>({
 		items: [],
-		isLoading: false
+		isLoading: true
 	})
 
 	let socket: WebSocket

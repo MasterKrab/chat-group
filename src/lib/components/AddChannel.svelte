@@ -1,5 +1,6 @@
 <script lang="ts">
 	import chat from '$lib/stores/chat'
+	import Portal from 'svelte-portal'
 	import Modal from '$lib/components/Modal.svelte'
 	import Alert from '$lib/components/Alert.svelte'
 	import axios from 'axios'
@@ -46,48 +47,50 @@
 	<span class="material-icons">add</span>
 </button>
 
-<Alert text={error} />
+<Portal target="body">
+	<Alert text={error} />
 
-<Modal bind:openModal>
-	<form
-		class="form"
-		on:submit|preventDefault={handleSubmit}
-		aria-labelledby="create-channel-form-label"
-	>
-		<h2 class="form__title" id="create-channel-form-label">New Channel</h2>
+	<Modal bind:openModal>
+		<form
+			class="form"
+			on:submit|preventDefault={handleSubmit}
+			aria-labelledby="create-channel-form-label"
+		>
+			<h2 class="form__title" id="create-channel-form-label">New Channel</h2>
 
-		<button on:click={handleToggle} type="button" class="form__close" aria-label="Close form">
-			<span class="material-icons">close</span>
-		</button>
+			<button on:click={handleToggle} type="button" class="form__close" aria-label="Close form">
+				<span class="material-icons">close</span>
+			</button>
 
-		<input
-			bind:value={name}
-			class="form__input"
-			type="text"
-			aria-label="Channel Name"
-			placeholder="Channel Name"
-			name="name"
-			aria-required="true"
-			aria-invalid={!!nameError}
-			maxlength={15}
-		/>
+			<input
+				bind:value={name}
+				class="form__input"
+				type="text"
+				aria-label="Channel Name"
+				placeholder="Channel Name"
+				name="name"
+				aria-required="true"
+				aria-invalid={!!nameError}
+				maxlength={15}
+			/>
 
-		{#if nameError}
-			<p class="form__error" role="alert">{nameError}</p>
-		{/if}
+			{#if nameError}
+				<p class="form__error" role="alert">{nameError}</p>
+			{/if}
 
-		<textarea
-			bind:value={description}
-			class="form__textarea"
-			aria-label="Channel Description"
-			placeholder="Channel Description"
-			name="description"
-			maxlength={320}
-		/>
+			<textarea
+				bind:value={description}
+				class="form__textarea"
+				aria-label="Channel Description"
+				placeholder="Channel Description"
+				name="description"
+				maxlength={320}
+			/>
 
-		<button class="form__submit">Save</button>
-	</form>
-</Modal>
+			<button class="form__submit">Save</button>
+		</form>
+	</Modal>
+</Portal>
 
 <style lang="scss">
 	.form {

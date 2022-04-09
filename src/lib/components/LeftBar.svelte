@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte'
 	import chat from '$lib/stores/chat'
 	import user from '$lib/stores/user'
 	import { scale } from 'svelte/transition'
@@ -8,7 +9,7 @@
 	import createHandleFocusLeaveElement from '$lib/utils/createHandleFocusLeaveElement'
 	import User from '$lib/components/User.svelte'
 
-	export let menuOpen = false
+	export let menuOpen: boolean
 	export let showChannel = false
 
 	let parentNode: HTMLElement
@@ -23,54 +24,55 @@
 	}
 
 	const handleClick = (e: Event) => {
-		const target = e.target as HTMLElement
-
-		!target.closest('.button-open-menu') && !parentNode.contains(target) && closeMenu()
+		e.target === parentNode && closeMenu()
 	}
 </script>
 
-<svelte:window on:click={menuOpen ? handleClick : undefined} on:join-channel={handleJoinChannel} />
+<svelte:window on:join-channel={handleJoinChannel} />
 
 <section
 	bind:this={parentNode}
-	on:focusout={createHandleFocusLeaveElement(closeMenu)}
+	on:click={handleClick}
 	class="section"
 	class:section--active={menuOpen}
+	id="left-bar"
 >
-	<div class="top">
-		{#if showChannel}
-			<button on:click={handleCloseChannel} class="top__button">
-				<span class="material-icons top__arrow-back" aria-hidden="true">arrow_back_ios</span> All channels
-			</button>
-		{:else}
-			<h1 class="top__title">Channels</h1>
+	<div class="section__content">
+		<div class="top">
+			{#if showChannel}
+				<button on:click={handleCloseChannel} class="top__button">
+					<span class="material-icons top__arrow-back" aria-hidden="true">arrow_back_ios</span> All channels
+				</button>
+			{:else}
+				<h1 class="top__title">Channels</h1>
 
-			{#if $user.data}
-				<AddChannel />
+				{#if $user.data}
+					<AddChannel />
+				{/if}
 			{/if}
+		</div>
+
+		<div class="body">
+			{#if showChannel}
+				<header class="header">
+					<h1 class="title">{$chat.name}</h1>
+					<p>{$chat.description || 'No description'}</p>
+				</header>
+
+				<Members />
+			{:else}
+				<Channels />
+			{/if}
+		</div>
+
+		{#if menuOpen}
+			<button on:click={closeMenu} in:scale={{ delay: 400 }} out:scale class="close-button">
+				<span class="material-icons">close</span>
+			</button>
 		{/if}
+
+		<User />
 	</div>
-
-	<div class="body">
-		{#if showChannel}
-			<header class="header">
-				<h1 class="title">{$chat.name}</h1>
-				<p>{$chat.description || 'No description'}</p>
-			</header>
-
-			<Members />
-		{:else}
-			<Channels />
-		{/if}
-	</div>
-
-	{#if menuOpen}
-		<button on:click={closeMenu} in:scale={{ delay: 400 }} out:scale class="close-button">
-			<span class="material-icons">close</span>
-		</button>
-	{/if}
-
-	<User />
 </section>
 
 <style lang="scss">
@@ -83,21 +85,27 @@
 	}
 
 	.section {
-		background-color: var(--secondary-color);
-
 		@media screen and (max-width: 768px) {
-			position: fixed;
+			position: absolute;
 			top: 0;
 			left: 0;
 			z-index: 100;
 			width: 85%;
-			max-width: 20.25rem;
 			height: 100vh;
 			transform: translateX(-100%);
 			transition: transform 0.5s ease-in-out;
 
 			&--active {
 				transform: translateX(0);
+			}
+		}
+
+		&__content {
+			position: relative;
+			background-color: var(--secondary-color);
+
+			@media screen and (max-width: 768px) {
+				max-width: 22.625rem;
 			}
 		}
 	}
