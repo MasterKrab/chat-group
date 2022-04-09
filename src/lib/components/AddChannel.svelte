@@ -1,6 +1,6 @@
 <script lang="ts">
 	import chat from '$lib/stores/chat'
-	import Portal from 'svelte-portal'
+	import Portal from 'svelte-portal/src/Portal.svelte'
 	import Modal from '$lib/components/Modal.svelte'
 	import Alert from '$lib/components/Alert.svelte'
 	import axios from 'axios'

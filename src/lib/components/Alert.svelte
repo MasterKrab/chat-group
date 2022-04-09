@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { portal } from 'svelte-portal'
+	import { portal } from 'svelte-portal/src/Portal.svelte'
 
 	export let text: string
 </script>
