@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation'
 	import { setToken } from '$lib/utils/token'
 	import axios from 'axios'
+	import getIsError from '$lib/utils/getIsError'
 	import type Token from '$lib/types/token'
 	import Form from '$lib/components/Form.svelte'
 	import Alert from '$lib/components/Alert.svelte'
@@ -38,8 +39,8 @@
 				setToken(data.access_token)
 				goto('/')
 			})
-			.catch(({ response }) => {
-				error = response.data.detail
+			.catch((responseError: Error) => {
+				if (getIsError(responseError)) error = responseError.response.data.detail
 			})
 			.finally(() => {
 				isLoading = false

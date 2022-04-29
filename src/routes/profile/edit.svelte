@@ -6,6 +6,7 @@
 	import Alert from '$lib/components/Alert.svelte'
 	import PasswordValidator from '$lib/components/PasswordValidator.svelte'
 	import axios from 'axios'
+	import getIsError from '$lib/utils/getIsError'
 	import getRequestConfig from '$lib/utils/getRequestConfig'
 	import toFormData from '$lib/utils/toFormData'
 
@@ -59,8 +60,8 @@
 				avatar = null
 				user.updateUser(data)
 			})
-			.catch(({ response }) => {
-				error = response.data.detail
+			.catch((responseError: Error) => {
+				if (getIsError(responseError)) error = responseError.response.data.detail
 			})
 	}
 </script>

@@ -5,6 +5,7 @@
 	import Alert from '$lib/components/Alert.svelte'
 	import axios from 'axios'
 	import getRequestConfig from '$lib/utils/getRequestConfig'
+	import getIsError from '$lib/utils/getIsError'
 
 	let openModal = false
 
@@ -37,8 +38,8 @@
 				chat.changeChannel(data.id)
 				openModal = false
 			})
-			.catch(({ response }) => {
-				error = response.data.detail
+			.catch((responseError: Error) => {
+				if (getIsError(responseError)) error = responseError.response.data.detail
 			})
 	}
 </script>

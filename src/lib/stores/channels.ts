@@ -1,6 +1,5 @@
 import { writable } from 'svelte/store'
 import type Channel from '$lib/types/channel'
-import chat from '$lib/stores/chat'
 
 const createChannels = () => {
 	const { subscribe, set, update } = writable<{
@@ -28,7 +27,7 @@ const createChannels = () => {
 			if (message.type === 'channels') {
 				update((state) => ({
 					...state,
-					items: message.channels,
+					items: message.channels as Channel[],
 					isLoading: false
 				}))
 				return
@@ -37,7 +36,7 @@ const createChannels = () => {
 			if (message.type === 'new') {
 				update((state) => ({
 					...state,
-					items: [...state.items, message.channel]
+					items: [...state.items, message.channel as Channel]
 				}))
 			}
 		})
