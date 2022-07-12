@@ -1,6 +1,6 @@
 # Chat Group
 
-Chat application with channels. Solution for a ![challenge](https://devchallenges.io/challenges/UgCqszKR7Q7oqb4kRfI0) from ![devchallenges.io](https://devchallenges.io/). The frontend is made in SvelteKit, the backend is made in Python using FastApi, PostgreSQL as database and SQLAlchemy as ORM. ![Here is the backend repository.](https://github.com/MasterKrab/chat-group-api)
+Chat application with channels. Solution for a [challenge](https://devchallenges.io/challenges/UgCqszKR7Q7oqb4kRfI0) from [devchallenges.io](https://devchallenges.io/). The frontend is made in SvelteKit, the backend is made in Python using FastApi, PostgreSQL as database and SQLAlchemy as ORM. [Here is the backend repository.](https://github.com/MasterKrab/chat-group-api)
 
 ## Prerequisites
 
