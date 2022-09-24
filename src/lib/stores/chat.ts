@@ -86,7 +86,6 @@ const createChat = () => {
 
 		socket.addEventListener('close', () => connect(id))
 		socket.close()
-		return
 	}
 
 	return {
