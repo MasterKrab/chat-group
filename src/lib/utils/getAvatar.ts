@@ -1,4 +1,4 @@
 const getAvatar = (username: string, avatar?: string) =>
-	avatar || `https://avatars.dicebear.com/api/identicon/${username}.svg`
+	avatar || `https://api.dicebear.com/7.x/identicon/svg?seed=${name}`
 
 export default getAvatar
